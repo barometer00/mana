@@ -25,7 +25,7 @@
     icon: 'location',
     path: 'Other',
     children: [{
-      path: 'data',
+      path: '/data',
       name: 'data',
       label: '数据',
       icon: 'setting',

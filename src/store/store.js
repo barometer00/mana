@@ -7,19 +7,23 @@ export const Pinia = createPinia()
 export const useStore = defineStore('main',{
     state: () => ({
             isCollapse: true,
-            currentMenu: null,
-            tabsList: [
+            currentMenu: JSON.parse(sessionStorage.getItem('currentMenu')) ,
+            tabs: JSON.parse(sessionStorage.getItem('tabs')||'[]'),
+            menu: JSON.parse(localStorage.getItem('menu') ||'[]'), 
+            token:Cookie.get('token') ||'',
+    }),
+    getters: {
+        tabsList(){
+            return [
                 {
                     path:'/',
                     name:'home',
                     label:'首页',
-                    icon:'home',
+                    icon:'home',                 
                 },
-            ],
-            menu: JSON.parse(localStorage.getItem('menu') ||'[]'), 
-            token:Cookie.get('token') ||'',
-    }),
-    getters:{},
+            ].concat(this.tabs)
+        }
+    },
     actions: {
         updataIsCollapse(){
             this.isCollapse = !this.isCollapse
@@ -27,15 +31,27 @@ export const useStore = defineStore('main',{
         selectMenu(val){
             if(val.name === 'home') {
                 this.currentMenu = null
+                sessionStorage.removeItem('currentMenu')
             }  else {
                 this.currentMenu = val
+                sessionStorage.setItem('currentMenu', JSON.stringify(val))
                 let result = this.tabsList.findIndex(item => item.name == val.name);
-                result == -1 ? this.tabsList.push(val) :''
+                result == -1 ? this.tabs.push(val) :''
+                sessionStorage.setItem('tabs', JSON.stringify(this.tabs))
             }      
         },
+        cleanCurrentMenu(){
+            this.currentMenu = null
+            sessionStorage.removeItem('currentMenu')
+        },
         closeTab(val){
-            let result = this.tabsList.findIndex(item =>item.name === val.name)
-            this.tabsList.splice(result,1)
+            let result = this.tabs.findIndex(item =>item.name === val.name)
+            this.tabs.splice(result,1)
+            sessionStorage.setItem('tabs', JSON.stringify(this.tabs))
+        },
+        cleanTab(){
+            this.tabs=[]
+            sessionStorage.removeItem("tabs")
         },
         setMenu(val){
             this.menu = val

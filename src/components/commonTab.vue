@@ -1,6 +1,6 @@
 <template>
     <div class="tags">
-     <el-tag v-for="(tag, index) in tags" :key="index" 
+     <el-tag v-for="(tag, index) in store.tabsList" :key="tag.path" 
         :closable="tag.name!='home'" :disable-transitions="false"
         :effect="$route.name ===  tag.name ? 'dark' :'plain'" @click="changeMenu(tag)" @close="handleClose(tag,index)" >
            {{tag.label}} 
@@ -16,31 +16,28 @@ export default {
         const store = useStore()
         const router = useRouter()
         const route = useRoute()
-        const tags =  store.tabsList
         const changeMenu = (item)=>{
             router.push({name:item.name})
             store.selectMenu(item)
         }
         const handleClose = (item,index) => {
-            let length =tags.length-1
+            let length = store.tabsList.length-1
             store.closeTab(item)
-
             if(item.name !== route.name) return;
             if(index === length) {
                 router.push({
-                    name:tags[index-1].name,
+                    name: store.tabsList[index-1].name,
                 })
             } else {
                 router.push({
-                    name:tags[index].name
+                    name: store.tabsList[index].name
                 })
             }
-
         }
         return {
-            tags,
             changeMenu,
             handleClose,
+            store,
         }
     }
 }

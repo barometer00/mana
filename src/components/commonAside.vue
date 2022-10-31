@@ -1,5 +1,5 @@
 <template>
-    <el-menu class="el-menu" background-color="#545c64" text-color="#fff" :collapse="!store.isCollapse" :collapse-transition="false"  :router="true"> 
+    <el-menu class="el-menu" background-color="#545c64" text-color="#fff" :collapse="!store.isCollapse" :collapse-transition="false" :default-active="route.fullPath" :router="true"> 
         <h3 v-show="store.isCollapse">后台管理</h3>
         <h3  v-show="!store.isCollapse">后台</h3>
         <el-menu-item v-for="(item) in noChildren()" :key="item.path" :index="item.path" @click="handlerRoute(item)">
@@ -21,12 +21,13 @@
 
 <script>
 import { useStore } from '../store/store'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 export default {
     setup() {
         const store = useStore()
         const List = store.menu
         const router = useRouter()
+        const route = useRoute()
         const handlerRoute = (item) => {
             //router.push({name: item.name})
             store.selectMenu(item)
@@ -44,6 +45,7 @@ export default {
             hasChildren,
             store,
             handlerRoute,
+            route,
         }
     }
 }

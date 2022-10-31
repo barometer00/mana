@@ -7,6 +7,7 @@
     "dev": "vite --open",
     "build": "vite build",
     "preview": "vite preview --open",
+    "prdeploy": " npm run build",
     "deploy": "gh-pages -d dist -r git@github.com:barometer00/mana.git -b gh-pages"
   },
   "dependencies": {

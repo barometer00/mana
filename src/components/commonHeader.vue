@@ -42,6 +42,7 @@ export default {
         const handleLoginOut = () =>{
             store.cleanMenu()
             store.cleanToken()
+            store.cleanCurrentMenu()
             router.push({
                 name:'login'
             })
