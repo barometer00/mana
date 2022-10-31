@@ -51,7 +51,7 @@
               const tem = oldList[oldIndex]
               oldList[oldIndex] = oldList[newIndex]
               oldList[newIndex] = tem
-              console.log(oldList[0])
+              //console.log(oldList[0])
             }
           }
         })

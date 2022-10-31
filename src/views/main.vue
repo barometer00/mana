@@ -1,7 +1,7 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside :width="isCollapse?'180px':'64px'">
+      <el-aside :width="store.isCollapse?'180px':'64px'">
         
         <common-aside></common-aside>
       </el-aside>
@@ -23,9 +23,8 @@
 import commonHeader from '../components/commonHeader.vue'
 import commonAside from '../components/commonAside.vue';
 import commonTab from '../components/commonTab.vue';
-import { defineComponent } from 'vue';
+import { defineComponent, watch } from 'vue';
 import { useStore } from '../store/store'
-import { computed } from '@vue/reactivity';
 import CommonTab from '../components/commonTab.vue';
 export default defineComponent({
   components: {
@@ -36,9 +35,8 @@ export default defineComponent({
 },
   setup() {
     const store = useStore()
-    let isCollapse = computed(() => store.isCollapse)
     return {
-      isCollapse
+      store
     }
 }
 })

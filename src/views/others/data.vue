@@ -50,7 +50,6 @@ export default defineComponent({
                 item.parentId = null
                 return item
             })
-            console.log(data.value);
             
         }
         onMounted(()=>{

@@ -8,7 +8,7 @@
             </el-button>
                 <el-breadcrumb separator="/" class="bread">
                     <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item v-if="current" :to="current.path">{{current.label}}</el-breadcrumb-item>
+                    <el-breadcrumb-item v-if="store.currentMenu" :to="store.currentMenu.path">{{store.currentMenu.label}}</el-breadcrumb-item>
                 </el-breadcrumb>
         </div>
         <div class="r-content">
@@ -27,7 +27,6 @@
     </div>
 </template>
 <script>
-import { computed } from '@vue/reactivity'
 import { useRouter } from 'vue-router'
 import { useStore } from '../store/store'
 export default {
@@ -39,9 +38,6 @@ export default {
         const handleCollapse = () => {
             store.updataIsCollapse()
         }
-        const current = computed(() => {
-            return store.$state.currentMenu
-        })
         const router = useRouter()
         const handleLoginOut = () =>{
             store.cleanMenu()
@@ -53,8 +49,8 @@ export default {
         return {
             getImgSrc,
             handleCollapse,
-            current,
             handleLoginOut,
+            store,
         }
     }
 }

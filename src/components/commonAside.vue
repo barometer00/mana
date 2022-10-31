@@ -1,5 +1,5 @@
 <template>
-    <el-menu class="el-menu" background-color="#545c64" text-color="#fff" :collapse="!store.isCollapse" :collapse-transition="false" :router="true"> 
+    <el-menu class="el-menu" background-color="#545c64" text-color="#fff" :collapse="!store.isCollapse" :collapse-transition="false"  :router="true"> 
         <h3 v-show="store.isCollapse">后台管理</h3>
         <h3  v-show="!store.isCollapse">后台</h3>
         <el-menu-item v-for="(item) in noChildren()" :key="item.path" :index="item.path" @click="handlerRoute(item)">
